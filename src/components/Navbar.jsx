@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between z-40 w-full p-4">
-        <Link to="'/" className="uppercase text-red-600 font-nsans-bold cursor-pointer text-4xl">netflix</Link>
+    <div className="absolute flex justify-between z-40 w-full p-4">
+        <Link to="/" className="uppercase text-red-600 font-nsans-bold cursor-pointer text-4xl">netflix</Link>
 
         <div>
         <Link to={'/login'}>

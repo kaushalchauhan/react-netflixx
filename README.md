@@ -11,3 +11,11 @@
 "nsans-medium": ["Nsans Medium"]
 }
 }`
+
+## Securing API key
+
+- create .env file at root level
+
+- const VITE_IMDB_KEY = "kjbfdkbkbfdsk"; for VITE, VITE prefix is must = VITE_IMDB_KEY
+- within service.js file, const key = import.meta.env.VITE_TMDB_KEY;
+- add .env file to .gitignore
