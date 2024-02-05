@@ -1,13 +1,24 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { UserAuth } from '../context/AuthContext';
 
 const Signup = () => {
   const [rememberLogin, setRememberLogin] = useState(true);
   const [email, setEmail] = useState('')
   const [password,setPassword] = useState('')
-  const handleFormSubmit = (e)=>{
+  const [errMsg,setErrMsg] = useState("")
+
+  const {signup, user} = UserAuth()
+   const navigate = useNavigate()
+  const handleFormSubmit = async(e)=>{
     e.preventDefault()
-   
+   try {
+    await signup(email,password)
+    navigate('/')
+   } catch (err) {
+    console.log(err);
+    setErrMsg(err.message)
+   }
   }
   return (
     <>
@@ -24,9 +35,14 @@ const Signup = () => {
             <input className='p-3 my-2 bg-gray-700 rounded' type="email" placeholder='email' autoComplete='email' value={email} onChange={(e)=>setEmail(e.target.value)}/>
             <input className='p-3 my-2 bg-gray-700 rounded' type="password" placeholder='password' autoComplete='current-password' value={password} onChange={(e)=>setPassword(e.target.value)}/>
             <button className='bg-red-600 py-3 my-6 rounded font-nsans-bold'>Sign Up</button>
+           {(errMsg ?  (
+           <p className=' text-center text-red-600 mb-3'>❗️{errMsg}</p>
+           ) : (""))}
             <div className='flex justify-between items-center text-gray-600'>
         <p><input type="checkbox" className='mr-2' checked={rememberLogin} onChange={(e)=> setRememberLogin(!rememberLogin)}/>Remember me</p>
-        <p>Need Help?</p>
+        <a href="https://www.linkedin.com/in/kaushalrchauhan/" target="_blank" rel="noopener noreferrer">
+          <p>Need Help?</p>
+        </a>
             </div>
             <p className='my-2'><span className='text-gray-600 mr-2'>Already subscribed to Netflix?</span><Link to={'/login'}>Sign In</Link></p>
           </form>
